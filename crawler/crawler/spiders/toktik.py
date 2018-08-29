@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy_redis.spiders import RedisSpider
-from settings import SPIDER_NAME
+from crawler.settings import SPIDER_NAME
 
 
 class TiktokSpider(RedisSpider):
