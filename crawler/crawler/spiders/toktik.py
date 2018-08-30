@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from scrapy_redis.spiders import RedisSpider
-from crawler.settings import SPIDER_NAME, redis_client, download, LOGGER_NAME
+from crawler.settings import SPIDER_NAME,  LOGGER_NAME
+from crawler.common import redis_client, download
 import logging
 
 logger = logging.getLogger(LOGGER_NAME)
