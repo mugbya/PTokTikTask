@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+import os
+from logging import config
 # Scrapy settings for crawler project
 #
 # For simplicity, this file contains only settings considered important or
@@ -8,6 +9,10 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+DEBUG = True
 
 BOT_NAME = 'crawler'
 
@@ -90,3 +95,49 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 SPIDER_NAME = 'toktik'
+
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '6379'
+REDIS_DB = '0'
+REDIS_PASSWORD = ''
+
+
+LOG_PATH = '%s/logs' % os.path.dirname(BASE_DIR)
+LOGGER_NAME = 'crawler_log'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'}
+    },
+    'filters': {
+    },
+    'handlers': {
+        'default': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_PATH + '/crawler.log',
+            'maxBytes': 1024 * 1024 * 10,
+            'backupCount': 10,
+            'formatter': 'standard',
+            "encoding": "utf8"
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        }
+    },
+    'loggers': {
+        LOGGER_NAME: {
+            'handlers': ['default', 'console'],
+            'level': 'INFO',
+            'propagate': True
+        }
+
+    }
+}
+
+config.dictConfig(LOGGING)
